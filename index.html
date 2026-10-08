@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#081225" />
+    <title>TETRIS — 클래식 블록 퍼즐</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <span class="brand-mark" aria-hidden="true">▦</span>
+          <div>
+            <p class="eyebrow">CLASSIC BLOCK PUZZLE</p>
+            <h1>TETRIS</h1>
+          </div>
+        </div>
+        <button class="icon-button" id="header-pause" type="button" aria-label="일시정지" title="일시정지 (P)">
+          <span id="header-pause-icon">Ⅱ</span>
+        </button>
+      </header>
+
+      <section class="game-layout" aria-label="테트리스 게임">
+        <aside class="side-panel left-panel">
+          <section class="panel-card preview-card">
+            <div class="panel-heading">
+              <h2>HOLD</h2>
+              <span class="key-badge">C</span>
+            </div>
+            <div class="mini-board" id="hold-preview" aria-label="보관 중인 블록"></div>
+            <p class="helper-text">한 블록당 한 번 교체</p>
+          </section>
+
+          <section class="panel-card controls-card desktop-help">
+            <div class="panel-heading">
+              <h2>조작 방법</h2>
+              <span class="heading-icon">⌨</span>
+            </div>
+            <ul class="key-list">
+              <li><span><kbd>←</kbd><kbd>→</kbd></span><span>이동</span></li>
+              <li><span><kbd>↑</kbd></span><span>회전</span></li>
+              <li><span><kbd>↓</kbd></span><span>빠르게 내리기</span></li>
+              <li><span><kbd>Space</kbd></span><span>즉시 내리기</span></li>
+              <li><span><kbd>P</kbd></span><span>일시정지</span></li>
+            </ul>
+          </section>
+        </aside>
+
+        <section class="board-column">
+          <div class="board-frame">
+            <div class="board-topline">
+              <span id="status-label" class="status-label ready">READY</span>
+              <span class="board-size">10 × 20</span>
+            </div>
+            <div class="board" id="board" aria-label="테트리스 플레이 영역" role="grid"></div>
+            <div class="screen-overlay visible" id="screen-overlay">
+              <div class="overlay-card">
+                <div class="overlay-icon" id="overlay-icon">▦</div>
+                <p class="eyebrow" id="overlay-eyebrow">READY TO PLAY?</p>
+                <h2 id="overlay-title">블록을 쌓아보세요</h2>
+                <p id="overlay-message">한 줄씩 지우며 최고 점수에 도전하세요.</p>
+                <div class="result-stats" id="result-stats" hidden>
+                  <div><strong id="result-score">0</strong><span>점수</span></div>
+                  <div><strong id="result-lines">0</strong><span>줄</span></div>
+                  <div><strong id="result-level">1</strong><span>레벨</span></div>
+                </div>
+                <button class="primary-button" id="overlay-action" type="button">게임 시작</button>
+                <p class="overlay-hint" id="overlay-hint">키보드 <kbd>Space</kbd>로도 시작할 수 있어요</p>
+              </div>
+            </div>
+          </div>
+          <p class="mobile-tip">블록을 탭하거나 아래 버튼을 눌러 조작하세요.</p>
+        </section>
+
+        <aside class="side-panel right-panel">
+          <section class="panel-card stats-card">
+            <div class="stat-row main-stat"><span>SCORE</span><strong id="score">000000</strong></div>
+            <div class="stat-row"><span>LEVEL</span><strong id="level">1</strong></div>
+            <div class="stat-row"><span>LINES</span><strong id="lines">0</strong></div>
+            <div class="stat-row best-row"><span>BEST</span><strong id="best-score">000000</strong></div>
+          </section>
+
+          <section class="panel-card preview-card next-card">
+            <div class="panel-heading">
+              <h2>NEXT</h2>
+              <span class="heading-icon">↓</span>
+            </div>
+            <div class="next-list" id="next-list" aria-label="다음 블록 미리보기"></div>
+          </section>
+
+          <button class="secondary-button new-game-button" id="new-game" type="button">↻ 새 게임</button>
+        </aside>
+      </section>
+
+      <section class="touch-controls" aria-label="터치 조작 버튼">
+        <div class="touch-row utility-row">
+          <button class="control-button utility" data-action="hold" type="button"><span class="button-symbol">H</span><span>보관</span></button>
+          <button class="control-button utility" data-action="rotate-left" type="button"><span class="button-symbol">↺</span><span>반시계</span></button>
+          <button class="control-button utility" data-action="rotate-right" type="button"><span class="button-symbol">↻</span><span>회전</span></button>
+          <button class="control-button utility" data-action="pause" type="button"><span class="button-symbol">Ⅱ</span><span>일시정지</span></button>
+        </div>
+        <div class="touch-row movement-row">
+          <button class="control-button movement" data-action="left" type="button" aria-label="왼쪽 이동"><span>←</span></button>
+          <button class="control-button movement drop" data-action="down" type="button" aria-label="빠르게 내리기"><span>↓</span><small>내리기</small></button>
+          <button class="control-button movement" data-action="right" type="button" aria-label="오른쪽 이동"><span>→</span></button>
+          <button class="control-button hard-drop" data-action="hard-drop" type="button"><span>⇣</span><small>즉시 내리기</small></button>
+        </div>
+      </section>
+
+      <footer class="footer-note">줄을 완성하면 점수를 얻습니다 · 10줄마다 레벨 UP</footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
